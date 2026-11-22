@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - Profile &amp; Settings</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore Facilities</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="history.html">My Bookings</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+        <li><a href="login.html" class="cta-button logout-btn">Sign Out</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Student Portal</h4>
+      <p>Campus Recreation Hub</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="dashboard.html">📊 Overview</a></li>
+      <li><a href="explore.html">🏟️ Explore Facilities</a></li>
+      <li><a href="history.html">📅 My Bookings</a></li>
+      <li><a href="settings.html" class="active">⚙️ Profile &amp; Settings</a></li>
+      <li><a href="login.html" class="logout-btn">🚪 Sign Out</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Settings Content -->
+  <main class="dashboard-content" id="settingsPage">
+    <h1>Profile &amp; Application Settings</h1>
+    <p class="dashboard-subtitle">
+      Manage your local demo account profile, display identity, and theme preference.
+    </p>
+
+    <!-- Account Details Card -->
+    <div class="card" style="max-width:640px;">
+      <h2>Student Profile</h2>
+      <form id="settingsForm">
+        <div>
+          <label for="displayName">Display Name</label>
+          <input type="text" id="displayName" name="displayName" placeholder="Enter your full name" />
+        </div>
+
+        <div>
+          <label for="email">Student Email (Read-Only)</label>
+          <input type="email" id="email" name="email" readonly />
+        </div>
+
+        <div class="theme-toggle" style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border);">
+          <label>
+            <input type="checkbox" id="themeSwitch" />
+            <span>Enable Dark Theme Preference</span>
+          </label>
+        </div>
+
+        <button type="submit" class="button primary" style="margin-top:1.5rem;">
+          Save Settings
+        </button>
+      </form>
+    </div>
+
+    <!-- Session Management Card -->
+    <div class="card" style="max-width:640px;">
+      <h2>Session Management</h2>
+      <p style="color:var(--text-secondary); margin-bottom:1.25rem;">
+        Sign out of your local session. Your demo bookings will remain saved on this browser.
+      </p>
+      <a href="login.html" class="button secondary logout-btn" style="color:var(--error); border-color:#fad2d2;">
+        Sign Out of Account
+      </a>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

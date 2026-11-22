@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - Facilities Management (Staff Demo)</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore Facilities</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+        <li><a href="facilities.html" class="active">Facilities Admin</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Staff Portal Demo</h4>
+      <p>Administrative Controls</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="staff.html">📋 Staff Overview</a></li>
+      <li><a href="facilities.html" class="active">🏟️ Facility Catalogue</a></li>
+      <li><a href="dashboard.html">🎓 Student View</a></li>
+      <li><a href="explore.html">🔍 Explore Venues</a></li>
+      <li><a href="index.html">🏠 Home Page</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Facilities Admin Content -->
+  <main class="dashboard-content" id="facilitiesPage">
+    <!-- Staff Demo Banner -->
+    <div class="staff-demo-banner">
+      <h1>STAFF DEMO</h1>
+      <p>
+        Administrative inventory controls. Add new venues, modify equipment specifications, update operational maintenance status, or remove unused facilities.
+      </p>
+    </div>
+
+    <!-- Facility Catalogue Admin Card -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+        <div>
+          <h2>Facility Catalogue Inventory</h2>
+          <p style="color:var(--text-secondary); margin:0;">
+            Real-time management of all campus sports courts, halls, and outdoor pitches.
+          </p>
+        </div>
+        <button type="button" id="addFacilityBtn" class="button primary">
+          + Add New Facility
+        </button>
+      </div>
+
+      <div id="facilityListContainer">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+
+    <!-- Return Link -->
+    <div style="margin-top:1.5rem;">
+      <a href="dashboard.html" class="button secondary">&larr; Return to Student Dashboard</a>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

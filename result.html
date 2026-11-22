@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - Booking Details</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore Facilities</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="history.html" class="active">My Bookings</a></li>
+        <li><a href="login.html" class="cta-button">Sign In</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Student Portal</h4>
+      <p>Campus Recreation Hub</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="dashboard.html">📊 Overview</a></li>
+      <li><a href="explore.html">🏟️ Explore Facilities</a></li>
+      <li><a href="history.html" class="active">📅 My Bookings</a></li>
+      <li><a href="settings.html">⚙️ Profile &amp; Settings</a></li>
+      <li><a href="login.html" class="logout-btn">🚪 Sign Out</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Booking Details Content -->
+  <main class="dashboard-content" id="bookingResult">
+    <h1>Reservation Details</h1>
+    <p class="dashboard-subtitle">
+      Inspect complete session information, review status, and manage this booking.
+    </p>
+
+    <div class="card" style="max-width:680px;">
+      <h2 style="margin-bottom:1.25rem;">Session Summary</h2>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.5rem;">
+        <div>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;">Sports Venue</span>
+          <p id="resultFacility" style="font-size:1.25rem; font-weight:700; color:var(--forest-green); margin-top:0.25rem;">[Facility Name]</p>
+        </div>
+        <div>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;">Current Status</span>
+          <div style="margin-top:0.25rem;">
+            <span id="resultStatus" class="status-badge pending">Pending</span>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;">Scheduled Date</span>
+          <p id="resultDate" style="font-size:1.1rem; font-weight:600; margin-top:0.25rem;">[Date]</p>
+        </div>
+        <div>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--text-secondary); text-transform:uppercase;">Time Slot</span>
+          <p id="resultTime" style="font-size:1.1rem; font-weight:600; margin-top:0.25rem;">[Time Slot]</p>
+        </div>
+      </div>
+
+      <div class="disclaimer-badge" style="margin-top:0; margin-bottom:1.75rem; display:block;">
+        ⚠️ This is a simulated student demo request stored locally. No actual university facility is booked.
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <a href="history.html" class="button secondary">&larr; Back to My Bookings</a>
+        <button type="button" id="cancelBookingBtn" class="button secondary" style="color:var(--error); border-color:#fad2d2;">
+          Cancel Reservation
+        </button>
+      </div>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

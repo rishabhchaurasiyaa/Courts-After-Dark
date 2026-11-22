@@ -1,0 +1,5 @@
+*.metadata.json
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

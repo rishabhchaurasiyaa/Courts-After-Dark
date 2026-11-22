@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - Facility Details &amp; Booking</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html" class="active">Explore Facilities</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="history.html">My Bookings</a></li>
+        <li><a href="login.html" class="cta-button">Sign In</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Student Portal</h4>
+      <p>Campus Recreation Hub</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="dashboard.html">📊 Overview</a></li>
+      <li><a href="explore.html" class="active">🏟️ Explore Facilities</a></li>
+      <li><a href="history.html">📅 My Bookings</a></li>
+      <li><a href="settings.html">⚙️ Profile &amp; Settings</a></li>
+      <li><a href="login.html" class="logout-btn">🚪 Sign Out</a></li>
+    </ul>
+  </aside>
+
+  <!-- Facility Details Main Content -->
+  <main class="dashboard-content" id="facilityDetails">
+    <div class="card" style="padding:0; overflow:hidden; margin-bottom:2rem;">
+      <img src="assets/images/placeholder.png" alt="Facility Image" class="facility-cover" id="facilityImage" style="border-radius:0; margin-bottom:0;" />
+      <div style="padding:2rem;">
+        <span class="badge success" id="facilityCategory" style="margin-bottom:0.75rem;">Sport Category</span>
+        <h1 id="facilityName" style="font-size:2rem; margin-bottom:0.75rem;">Sports Facility Name</h1>
+        <p id="facilityDescription" style="color:var(--text-secondary); font-size:1.05rem; line-height:1.6;">
+          Facility specifications and description will load here.
+        </p>
+      </div>
+    </div>
+
+    <!-- Date & Slot Selection Card -->
+    <div class="card">
+      <h2>Step 1: Choose Date</h2>
+      <p style="color:var(--text-secondary); margin-bottom:1rem;">
+        Select an upcoming date to view available evening and night slots.
+      </p>
+      <input type="date" id="bookingDate" class="date-input" />
+
+      <h2 style="margin-top:2rem;">Step 2: Choose Time Slot</h2>
+      <p style="color:var(--text-secondary); margin-bottom:1rem;">
+        Green/clickable slots are open for reservations. Strikethrough slots are currently booked or undergoing maintenance.
+      </p>
+      <div class="time-slot-grid" id="timeSlotGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <div style="margin-top:2.5rem; display:flex; justify-content:flex-end;">
+        <button id="continueButton" class="button primary" style="padding:0.85rem 2rem; font-size:1.05rem;" disabled>
+          Continue to Review &rarr;
+        </button>
+      </div>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80" fill="none">
+  <defs>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9C5BF8" />
+      <stop offset="100%" stop-color="#7224E3" />
+    </linearGradient>
+  </defs>
+  <!-- Brand Badge / Emblem -->
+  <g transform="translate(6, 12)">
+    <!-- Base Circle -->
+    <circle cx="28" cy="28" r="26" fill="url(#purpleGrad)" stroke="#E8DCC5" stroke-width="2"/>
+    <!-- Court Key/Half Court Lines -->
+    <path d="M12 28 H44" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="28" cy="28" r="11" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+    <path d="M22 14 V28 M34 14 V28" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Crescent Moon Accent (After Dark theme) -->
+    <path d="M42 10 A 10 10 0 0 0 35 22 A 10 10 0 0 1 43 14 Z" fill="#E8DCC5"/>
+  </g>
+  <!-- Typography -->
+  <text x="70" y="34" font-family="'Inter', -apple-system, sans-serif" font-size="18" font-weight="800" letter-spacing="1.5" fill="#FFFFFF">COURTS</text>
+  <text x="70" y="54" font-family="'Inter', -apple-system, sans-serif" font-size="18" font-weight="800" letter-spacing="1.5" fill="#E8DCC5">AFTER DARK</text>
+  <text x="71" y="68" font-family="'Inter', -apple-system, sans-serif" font-size="7.5" font-weight="600" letter-spacing="2" fill="#FFFFFF" opacity="0.85">CAMPUS SPORTS PLATFORM</text>
+</svg>

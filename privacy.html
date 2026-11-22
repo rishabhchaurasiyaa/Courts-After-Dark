@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - Privacy Policy</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore Facilities</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="login.html" class="cta-button">Sign In</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Courts After Dark</h4>
+      <p>Design Thinking Project</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="index.html">🏠 Home Page</a></li>
+      <li><a href="explore.html">🏟️ Explore Facilities</a></li>
+      <li><a href="about.html">📖 About Project</a></li>
+      <li><a href="privacy.html" class="active">🔒 Privacy Policy</a></li>
+      <li><a href="terms.html">⚖️ Terms of Service</a></li>
+      <li><a href="staff.html">🛠️ Staff Demo</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Privacy Content -->
+  <main class="dashboard-content" id="privacyPage">
+    <h1>Privacy Policy &amp; Data Handling</h1>
+    <p class="dashboard-subtitle">
+      Transparency regarding browser storage, client data retention, and educational prototype scope.
+    </p>
+
+    <div class="card">
+      <h2>100% Client-Side Local Storage</h2>
+      <p>
+        Courts After Dark is designed with a strict <strong>privacy-first, client-only architecture</strong>. The application does not transmit, synchronize, or store personal information, passwords, or booking records on external servers, analytics engines, or third-party cloud backends.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>What Data Is Stored in Your Browser?</h2>
+      <p>
+        The prototype stores minimal operational state in your web browser via HTML5 <code>localStorage</code> and <code>sessionStorage</code> APIs:
+      </p>
+      <ul>
+        <li><strong>Simulated Account Info:</strong> Your registered email and display name (hashed locally using basic encoding for session simulation).</li>
+        <li><strong>Demo Booking Records:</strong> Court ID, requested date, time slot, and status (<code>pending</code> or <code>canceled</code>).</li>
+        <li><strong>Temporary Booking Drafts:</strong> Uncommitted booking selections stored in <code>sessionStorage</code> until final review.</li>
+        <li><strong>UI Preferences:</strong> Your light/dark theme preference and remembered login email.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Data Retention &amp; User Control</h2>
+      <p>
+        Because all records reside locally on your device, you have complete sovereignty over your data:
+      </p>
+      <ul>
+        <li>You can inspect all stored entries at any time using your browser Developer Tools (<code>F12 &rarr; Application &rarr; Local Storage</code>).</li>
+        <li>Clearing your browser cache or site cookies permanently removes all simulated accounts and reservations.</li>
+        <li>No cross-device tracking, profiling cookies, or persistent device fingerprinting is utilized.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Academic Prototype Scope</h2>
+      <p>
+        This software is developed strictly as an academic prototype for university evaluation. It does not interface with real university athletic databases, payment gateways, or campus security credentials.
+      </p>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>

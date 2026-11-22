@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Courts After Dark - About Project</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="assets/images/logo.png" alt="Courts After Dark" class="logo-img" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="explore.html">Explore Facilities</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="login.html" class="cta-button">Sign In</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation">☰</button>
+    </div>
+  </nav>
+
+  <!-- Sidebar Navigation -->
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+    <div class="sidebar-brand-badge">
+      <h4>Courts After Dark</h4>
+      <p>Design Thinking Project</p>
+    </div>
+    <ul class="sidebar-links">
+      <li><a href="index.html">🏠 Home Page</a></li>
+      <li><a href="explore.html">🏟️ Explore Facilities</a></li>
+      <li><a href="about.html" class="active">📖 About Project</a></li>
+      <li><a href="privacy.html">🔒 Privacy Policy</a></li>
+      <li><a href="terms.html">⚖️ Terms of Service</a></li>
+      <li><a href="staff.html">🛠️ Staff Demo</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main About Content -->
+  <main class="dashboard-content" id="aboutPage">
+    <h1>About Courts After Dark</h1>
+    <p class="dashboard-subtitle">
+      A university Design Thinking initiative transforming campus recreation and evening sports access.
+    </p>
+
+    <div class="card">
+      <h2>Project Introduction</h2>
+      <p>
+        <strong>Courts After Dark</strong> is an interactive web platform prototype created as part of a human-centered Design Thinking project. The initiative focuses on bridging the gap between student interest in evening recreational sports and the logistical challenges of discovering available campus facilities.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Problem Statement &amp; Motivation</h2>
+      <p>
+        During initial student user research, participants highlighted several recurring friction points regarding campus recreational sports:
+      </p>
+      <ul>
+        <li>Lack of centralized, easily accessible visibility into court schedules and facility details.</li>
+        <li>Uncertainty about evening hours and illumination conditions across outdoor venues.</li>
+        <li>Inconvenience of informal or paper-based coordination for casual games.</li>
+        <li>Difficulty finding open recreational time during high-demand evening hours.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Core Objectives</h2>
+      <ul>
+        <li><strong>Discovery:</strong> Provide an intuitive, visual catalogue of sports facilities with clean photography and venue specifications.</li>
+        <li><strong>Scheduling Ergonomics:</strong> Test simulated hourly slot selection (available, booked, maintenance states) to demonstrate transparent evening booking workflows.</li>
+        <li><strong>Simulated Access:</strong> Enable instant demonstration requests stored in local device storage without backend server complexity.</li>
+        <li><strong>Student Self-Service:</strong> Allow users to review and manage simulated bookings from a central dashboard.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Prototype Notice &amp; Scope</h2>
+      <p>
+        <strong>Educational Prototype Disclaimer:</strong> Courts After Dark is an academic Design Thinking demonstration platform. All court schedules, availability indicators, and booking confirmations are simulated client-side using browser storage. This platform does not connect to live university administrative systems or guarantee physical court reservations.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Proposed Solution &amp; Technology Stack</h2>
+      <p>
+        Courts After Dark provides a responsive, privacy-preserving client-side web application built with:
+      </p>
+      <ul>
+        <li><strong>HTML5 &amp; Semantic Web Architecture:</strong> Multi-page architecture optimized for accessibility and screen readers.</li>
+        <li><strong>Modern CSS3:</strong> Custom design system utilizing Forest Green (<code>#173F35</code>), Sand Beige (<code>#E8DCC5</code>), and Electric Purple (<code>#8B45F7</code>), Inter typography, and fully responsive grid/flexbox layouts.</li>
+        <li><strong>Vanilla JavaScript (ES6+):</strong> Modular client-side architecture governing state management, UI interactions, modals, toasts, and input validation without heavy third-party framework overhead.</li>
+        <li><strong>Browser Storage API:</strong> Persistent client-side data handling via <code>localStorage</code> and <code>sessionStorage</code>.</li>
+      </ul>
+    </div>
+  </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 Courts After Dark. All rights reserved. University Design Thinking Prototype.</p>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="staff.html">Staff Demo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+</body>
+</html>
