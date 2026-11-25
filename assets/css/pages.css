@@ -304,7 +304,7 @@
 /* My Bookings History Grid */
 .booking-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: 1.5rem;
   margin-top: 1.25rem;
 }
@@ -606,6 +606,68 @@
   height: 1.25rem;
   accent-color: var(--electric-purple);
   cursor: pointer;
+}
+
+.result-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .facility-cover {
+    max-height: none;
+    aspect-ratio: 16 / 10;
+  }
+  .time-slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+    gap: 0.65rem;
+  }
+  .booking-grid {
+    grid-template-columns: 1fr;
+  }
+  .card,
+  .booking-summary,
+  .acknowledgements {
+    padding: 1.5rem;
+  }
+  .success-banner {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .result-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  .card,
+  .booking-summary,
+  .acknowledgements {
+    padding: 1.25rem;
+  }
+  .booking-card-actions {
+    flex-wrap: wrap;
+  }
+  .booking-card-actions .button {
+    flex: 1 1 auto;
+  }
+  .toast-container {
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+  .toast {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+  .modal-footer .button {
+    width: 100%;
+  }
 }
 
 /* Dark Theme Adjustments */

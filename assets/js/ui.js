@@ -13,18 +13,22 @@
     const navLinks = $('.nav-links');
     const sidebar = $('aside.sidebar');
 
-    if (toggleBtn && navLinks) {
+    if (toggleBtn && navLinks && toggleBtn.dataset.navInitialized !== 'true') {
+      toggleBtn.dataset.navInitialized = 'true';
       toggleBtn.setAttribute('aria-expanded', 'false');
       const navId = 'mobile-nav';
       navLinks.setAttribute('id', navId);
       toggleBtn.setAttribute('aria-controls', navId);
 
+      const isNavOpen = () =>
+        navLinks.classList.contains('open') || navLinks.classList.contains('show');
+
       const openNav = () => {
         navLinks.classList.add('open', 'show');
         toggleBtn.setAttribute('aria-expanded', 'true');
-        // On pages with sidebar, also slide out sidebar on mobile if needed
-        if (sidebar && window.innerWidth <= 768) {
-          sidebar.classList.add('open', 'show');
+        // Keep off-canvas sidebar closed while top nav dropdown is open so menus never overlap
+        if (sidebar) {
+          sidebar.classList.remove('open', 'show');
         }
       };
 
@@ -37,7 +41,7 @@
       };
 
       const toggleNav = () => {
-        if (navLinks.classList.contains('open') || navLinks.classList.contains('show')) {
+        if (isNavOpen()) {
           closeNav();
         } else {
           openNav();
@@ -49,21 +53,44 @@
         toggleNav();
       });
 
-      // Close when clicking nav links
+      // Close when clicking any navigation link inside mobile menu
       $$('.nav-links a').forEach((link) => {
         link.addEventListener('click', closeNav);
       });
 
-      // Close on clicking outside
+      // Close on clicking outside menu and toggle button
       document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !toggleBtn.contains(e.target) && (!sidebar || !sidebar.contains(e.target))) {
+        if (
+          isNavOpen() &&
+          !navLinks.contains(e.target) &&
+          !toggleBtn.contains(e.target) &&
+          (!sidebar || !sidebar.contains(e.target))
+        ) {
+          closeNav();
+        }
+      });
+
+      // Close on Escape key when mobile nav is open (unless a modal is active)
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isNavOpen()) {
+          const activeModal = $('#global-modal');
+          if (activeModal && !activeModal.classList.contains('hidden')) return;
+          closeNav();
+          toggleBtn.focus();
+        }
+      });
+
+      // Reset mobile menu state cleanly if resized above mobile breakpoint
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && isNavOpen()) {
           closeNav();
         }
       });
     }
 
     // Mobile sidebar close button if present
-    if (sidebar) {
+    if (sidebar && sidebar.dataset.sidebarCloseReady !== 'true') {
+      sidebar.dataset.sidebarCloseReady = 'true';
       let closeBtn = sidebar.querySelector('.sidebar-close-btn');
       if (!closeBtn) {
         closeBtn = document.createElement('button');

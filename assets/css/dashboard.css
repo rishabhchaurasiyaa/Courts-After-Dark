@@ -186,13 +186,15 @@
     width: var(--sidebar-mobile-width, 280px);
     height: 100vh;
     z-index: 2000;
-    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    visibility: hidden;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
   }
 
   .sidebar.show,
   .sidebar.open {
     left: 0;
+    visibility: visible;
   }
 
   .sidebar-close-btn {
@@ -201,6 +203,7 @@
 
   .dashboard-content {
     width: 100%;
+    max-width: 100%;
     padding: 1.75rem 1.25rem 3rem;
   }
 
