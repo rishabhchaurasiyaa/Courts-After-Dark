@@ -2,34 +2,34 @@
 
 **Project:** Courts After Dark — University Sports Facility Discovery & Demo Booking Platform  
 **Repository Target:** `d:\Courts After Dark` (GitHub Pages: `https://rishabhchaurasiyaa.github.io/Courts-After-Dark/`)  
-**Verification Method:** Chrome DevTools Protocol (Headless Chrome 1440px–360px), HTTP request logging, and static path inspection
+**Verification Method:** Chrome DevTools Protocol (Headless Chrome 1440px–360px), simulated touch/bfcache events, live-vs-local asset comparison, HTTP request logging, and static path inspection
 
 ---
 
 ## 1. Root Cause Analysis
 
-Inspection of the existing stylesheets (`assets/css/style.css`, `pages.css`, `auth.css`, `dashboard.css`), JavaScript (`assets/js/ui.js`), HTML pages, and pre-fix rendered captures at `768px` and `390px` identified six concrete defects causing mobile layout failures:
+### Why the Live GitHub Pages URL (`https://rishabhchaurasiyaa.github.io/Courts-After-Dark/`) Still Displayed the Bug
+Direct asset comparison between the live deployed URL and the local workspace (`d:\Courts After Dark`) confirmed:
+- `index.html` matches live (`7,125` bytes), **but live GitHub Pages still serves the older `1a97fe0` release assets** (`assets/css/style.css`: `12,577` bytes, `assets/css/pages.css`: `12,678` bytes, `assets/js/ui.js`: `9,904` bytes).
+- Meanwhile, the separate git repository folder `d:\Courts-After-Dark-Git` sits at an unpushed local commit `d02f026` (`[ahead 1]` over `origin/main` `1a97fe0`), so the mobile responsiveness fixes have not yet been deployed to GitHub Pages.
+- In the live `12,577`-byte `style.css`, `@media (max-width: 768px)` `.nav-links` inherits `height: 100%` (`72px`), causing expanded menu links (`Explore Facilities`, `How It Works`, `About`, `Login`, and the wide `Get Started` CTA button) to spill downward over the hero section. When that overflowing `Get Started` (`#8B45F7`) button overlaps the top half of the `Explore Facilities` (`#8B45F7`) hero CTA button, it produces the **purple extension shape beneath `Get Started`**.
 
-1. **Mobile Navigation Container Height Clamped to `72px` (`assets/css/style.css`):**
-   - Desktop `.nav-links` sets `height: 100%` inside the `72px` `.nav-bar` / `.nav-container`.
-   - Inside `@media (max-width: 768px)`, `.nav-links` switched to `position: absolute; top: var(--navbar-height, 72px); flex-direction: column;` without resetting `height` back to `auto`.
-   - As a result, when expanded, the green `.nav-links` panel stopped at `72px` tall (`y = 72..144px`), while the 6 menu items spilled vertically down to `y = 425px` directly across the hero heading, description, and CTA buttons with transparent background.
-   - `.nav-links` also lacked `z-index: 1001`, `max-height`, and `overflow-y: auto`.
-2. **Hero Mobile Breakpoint Mismatch & Excessive Spacing (`assets/css/style.css`):**
-   - Stacking `.hero-cta` to a single column (`flex-direction: column; width: 100%;`) was scoped only to `@media (max-width: 390px)`. At `430px` (and `412px` Android devices), `Explore Facilities` (`174px`) and `Create Free Account` (`201px`) wrapped into two unequal-width rows.
-   - Desktop `.hero` padding (`4.5rem 1.5rem`) and `height: 300px` hero image rules remained active down to small mobile screens, creating a large empty gap above the heading and pushing `.hero-image` down past `y = 800px` on `360×800` viewports.
-   - Hero heading (`h1`) used fixed breakpoint sizes instead of fluid `clamp()` typography.
-3. **Navbar & Sidebar Collision on Portal Pages (`assets/js/ui.js` & `assets/css/dashboard.css`):**
-   - On the 14 pages with `<aside class="sidebar">`, `ui.js` `openNav()` added `.open.show` to both `.nav-links` (`top: 72px`) and `.sidebar` (`position: fixed; left: 0; top: 0; width: 280px; z-index: 2000;`), causing the sidebar drawer to cover the navbar logo and overlap the `.nav-links` dropdown simultaneously.
-   - Off-canvas `.sidebar` lacked `visibility: hidden` when closed on mobile.
-4. **Missing Escape Key, Resize Reset & Duplicate-Listener Guard (`assets/js/ui.js`):**
-   - `initMobileNav()` had no `Escape` key handler, no `resize` cleanup above `768px`, and no `dataset` guard preventing duplicate listener registration.
-5. **`position: sticky` & Scroll Container Interaction (`assets/css/style.css`):**
-   - Setting `overflow-x: hidden` alone on both `html` and `body` creates an implicit vertical scroll container behavior that interferes with `position: sticky` on mobile Blink; adding `overflow-x: clip` preserves horizontal overflow clipping without interfering with sticky positioning.
-6. **Narrow-Screen Card & Component Edge Cases (`assets/css/pages.css`, `auth.css`, `dashboard.html`, `result.html`):**
-   - `result.html` forced an inline 2-column grid (`grid-template-columns: 1fr 1fr`) regardless of screen width.
-   - `dashboard.html` header row (`Available Facilities` + `View All →`) lacked `flex-wrap: wrap; gap: 1rem;`.
-   - `.toast` had `min-width: 300px` without a `< 480px` override, `.booking-grid` lacked `min(100%, 300px)`, and mobile `.auth-page-main` used `4.5rem` vertical padding.
+### Source & iOS Safari Fixes Verified Locally
+Inspection across `index.html`, `assets/css/style.css`, `pages.css`, `auth.css`, `dashboard.css`, and `ui.js` confirmed **zero** `::before` or `::after` pseudo-elements exist anywhere in the project stylesheets (`Select-String` returned `0` matches, and Chrome `getComputedStyle(..., '::before'/'::after').content` reported `"none"`). Concrete fixes applied across the codebase:
+
+1. **Mobile Navigation Container Height & Strict Closed Isolation (`assets/css/style.css`):**
+   - Reset `.nav-links` to `height: auto`, `top: 100%`, `max-height: calc(100vh - var(--navbar-height, 72px))` / `100dvh`, `overflow-y: auto`, `-webkit-overflow-scrolling: touch`, and `z-index: 1001` inside `@media (max-width: 768px)`.
+   - Added `.nav-links:not(.open):not(.show) { display: none !important; }` inside `@media (max-width: 768px)`, explicit `display: flex;` on `.nav-links a.cta-button`, `touch-action: manipulation` on `.mobile-menu-toggle`, and `flex-shrink: 0` on mobile `li` items so desktop rules cannot leak in.
+2. **Hero Mobile Breakpoint Alignment (`assets/css/style.css`):**
+   - Moved vertical `.hero-cta` stacking (`flex-direction: column; align-items: stretch; gap: 0.875rem; width: 100%;`) from `@media (max-width: 390px)` to `@media (max-width: 768px)` so `430px`, `390px`, and `360px` phones display equal-width stacked CTA buttons below `h1` and `.hero-subtitle`.
+   - Replaced fixed mobile sizing and `300px` cropped hero image height with `clamp()` typography, compact vertical spacing (`2.25rem 1.25rem 2.75rem`, `1.75rem 1rem 2.25rem` at `<= 480px`), and `aspect-ratio: 16 / 10` on `.hero-image img`.
+3. **iOS Safari Touch Outside-Tap, bfcache & Portal Sidebar Collision (`assets/js/ui.js`, `assets/css/dashboard.css`):**
+   - Called `closeNav()` immediately on init and added `window.addEventListener('pageshow', closeNav)` so Safari/mobile bfcache back-navigation always starts closed.
+   - Added `touchstart`/`touchmove`/`touchend` outside-tap dismissal alongside `document` `click`, `Escape` key dismissal restoring toggle focus, link-click dismissal (including `#how-it-works`), `resize` cleanup above `768px`, and `dataset` idempotency guards.
+   - Prevented `openNav()` from opening `aside.sidebar` simultaneously on the 14 portal pages, and added `visibility: hidden` when `.sidebar` is closed off-canvas (`<= 768px`).
+4. **`position: sticky` & Narrow-Screen Refinements (`assets/css/style.css`, `pages.css`, `auth.css`, `dashboard.html`, `result.html`):**
+   - Added `overflow-x: clip;` after `overflow-x: hidden;` on `html, body` to avoid breaking `position: sticky`.
+   - Switched `result.html` session metadata to `.result-meta-grid` (`1fr` below `520px`), added `flex-wrap: wrap` to `dashboard.html` header row, and constrained mobile `.toast`, `.booking-grid`, `.auth-page-main`, `.facility-cover`, and modal footer actions.
 
 ---
 
@@ -41,11 +41,11 @@ Inspection of the existing stylesheets (`assets/css/style.css`, `pages.css`, `au
 - JavaScript: `assets/js/ui.js`, `assets/js/app.js`, `assets/js/auth.js`, `assets/js/storage.js`.
 
 ### Files Modified
-1. `assets/css/style.css` — Added `overflow-x: clip;` on `html, body`; added `@media (min-width: 769px) and (max-width: 960px)` compact tablet nav spacing; fixed `@media (max-width: 768px)` `.nav-links` (`height: auto`, `max-height: calc(100vh - 72px)`, `overflow-y: auto`, `z-index: 1001`, readable link spacing & pill active/hover styling, full-width contained `.cta-button`); redesigned `@media (max-width: 768px)` / `480px` / `390px` hero vertical flow with `clamp()` typography, equal-width stacked full-width `.hero-cta` buttons with `14px` vertical gap, and `aspect-ratio: 16 / 10` hero image; added mobile dark-theme `.nav-links` background override.
+1. `assets/css/style.css` — Added `overflow-x: clip;` on `html, body`; added `@media (min-width: 769px) and (max-width: 960px)` compact tablet nav spacing; fixed `@media (max-width: 768px)` `.nav-links` (`height: auto`, `top: 100%`, `max-height` `100vh`/`100dvh`, `overflow-y: auto`, `-webkit-overflow-scrolling: touch`, `z-index: 1001`, `.nav-links:not(.open):not(.show)` forced hidden, `touch-action: manipulation` on `.mobile-menu-toggle`, readable link spacing & pill active/hover styling, full-width `display: flex` `.cta-button`); redesigned `@media (max-width: 768px)` / `480px` / `390px` hero vertical flow with `clamp()` typography, equal-width stacked full-width `.hero-cta` buttons with `14px` vertical gap, and `aspect-ratio: 16 / 10` hero image; added mobile dark-theme `.nav-links` background override.
 2. `assets/css/pages.css` — Changed `.booking-grid` `minmax` to `min(100%, 300px)`; added `.result-meta-grid`; added `@media (max-width: 768px)` and `@media (max-width: 520px)` rules for `.facility-cover`, `.time-slot-grid`, `.booking-grid`, `.card`, `.toast-container`/`.toast`, `.booking-card-actions`, and `.modal-footer`.
 3. `assets/css/auth.css` — Refined `@media (max-width: 480px)` `.auth-page-main` padding (`2.25rem 1rem`), `.auth-form` padding (`1.75rem 1.25rem`), and wrapped `.form-options`.
 4. `assets/css/dashboard.css` — Added `visibility: hidden` (closed) and `visibility: visible` (`.open`/`.show`) on mobile off-canvas `.sidebar`, and constrained `.dashboard-content` `max-width: 100%` at `<= 768px`.
-5. `assets/js/ui.js` — Updated `initMobileNav()` with `dataset.navInitialized` / `dataset.sidebarCloseReady` idempotency guards, single-menu toggle (`openNav()` ensures `.sidebar` stays closed so menus do not overlap), `Escape` key handler restoring focus to `.mobile-menu-toggle`, and `resize` cleanup above `768px`.
+5. `assets/js/ui.js` — Updated `initMobileNav()` with `dataset.navInitialized` / `dataset.sidebarCloseReady` idempotency guards, explicit initial `closeNav()`, single-menu toggle (`openNav()` ensures `.sidebar` stays closed so menus do not overlap), `touchstart`/`touchmove`/`touchend` outside-tap handling for iOS Safari, `pageshow` bfcache reset, `Escape` key handler restoring focus to `.mobile-menu-toggle`, and `resize` cleanup above `768px`.
 6. `dashboard.html` — Added `flex-wrap:wrap; gap:1rem;` to the `Available Facilities` section header row.
 7. `result.html` — Replaced inline `grid-template-columns:1fr 1fr` on session summary metadata with `.result-meta-grid`.
 
@@ -79,22 +79,25 @@ Inspection of the existing stylesheets (`assets/css/style.css`, `pages.css`, `au
 
 Desktop regression check at `1440×900`: `.hero-inner` grid columns = `2`, side-by-side layout = `true`, navbar `Get Started` CTA dimensions = `136×46px`.
 
-### B. Interactive Navigation Checks (`430px`, `390px`, `360px`)
+### B. Interactive Navigation & Pseudo-Element Checks (`430px`, `390px`, `360px`)
 All 3 mobile widths passed every interactive check (`true`):
 1. Initial closed state confirmed (`navDisplay: none`, `aria-expanded: "false"`).
 2. First hamburger click opened menu (`aria-expanded: "true"`).
 3. Second hamburger click closed menu (`aria-expanded: "false"`).
 4. `Escape` key closed menu (`aria-expanded: "false"`).
-5. Clicking outside on `.hero` closed menu.
-6. Selecting `Explore Facilities` navigated to `explore.html` with menu closed on load.
-7. Selecting `Get Started` opened `signup.html`.
+5. Clicking outside on `.hero` (`click`) AND simulated single-finger tap outside (`touchStart`/`touchEnd` for iOS Safari) closed menu.
+6. Selecting in-page `#how-it-works` anchor closed menu (`afterHashLinkClick: true`).
+7. `pageshow` bfcache event reset menu to closed (`afterPageShow: true`).
+8. Selecting `Explore Facilities` navigated to `explore.html` with menu closed on load.
+9. Selecting `Get Started` opened `signup.html`.
+10. Pseudo-element inspection confirmed `getComputedStyle(... , '::before').content === "none"` and `::after.content === "none"` on `.cta-button` and both `.hero-cta .button` elements across all viewports.
 
 ### C. Cross-Page Responsive Audit (All 18 Pages × 6 Viewports = 108 Checks)
 All 18 HTML pages (`index.html`, `login.html`, `signup.html`, `forgot-password.html`, `dashboard.html`, `explore.html`, `facility-details.html?id=fac1`, `booking-review.html`, `booking-success.html`, `history.html`, `settings.html`, `staff.html`, `facilities.html`, `about.html`, `privacy.html`, `terms.html`, `result.html`, `404.html`) were loaded at `1440`, `1280`, `768`, `430`, `390`, and `360`:
 - **Horizontal Overflow (`overflowX > 0`):** `0` failures out of 108 page-viewport checks.
 - **Broken Images (`naturalWidth === 0`):** `0` across all 18 pages.
 - **Mobile Menu Overflow / Sidebar Collision (`navOverflowBox` / `sidebarCollisionOnNavToggle`):** `0` failures across all `<= 768px` checks.
-- **HTTP Server Asset Log (`task-1270.log`):** All HTML, CSS, JS, and image requests returned `200` / `304`; 1 recurring browser default `GET /favicon.ico` returned `404` (recorded once in Chrome logs). Zero JavaScript runtime exceptions.
+- **HTTP Server Asset Log (`task-1375.log`):** All HTML, CSS, JS, and image requests returned `200` / `304`; 1 browser default `GET /favicon.ico` returned `404` (recorded once in Chrome logs). Zero JavaScript runtime exceptions.
 
 ### D. Executed Functional Regression Tests (`390×844`)
 - **Signup & Password Toggle (`signup.html`):** Password toggle switched input type to `"text"`; form submission created `Jordan Lee` in `localStorage` and redirected to `dashboard.html` (`#userName` = `"Jordan Lee"`).
@@ -130,7 +133,7 @@ All 9 actual Headless Chrome captures (visually inspected) are saved in `screens
 
 ## 7. Remaining Limitations & Notes
 
-1. **Deployment Sync Needed for Live URL:** Changes were implemented and verified on the local workspace (`d:\Courts After Dark`) served via local Python HTTP server (`http://localhost:8000`). The live GitHub Pages site (`https://rishabhchaurasiyaa.github.io/Courts-After-Dark/`) still reflects the prior deployed state until these workspace files are pushed to GitHub.
+1. **Deployment Sync Needed for Live URL:** Local fixes in `d:\Courts After Dark` have been verified against `http://localhost:8000` (local HTTP server kept running for your visual review). Meanwhile, `d:\Courts-After-Dark-Git` currently has an older unpushed commit `d02f026` (`[ahead 1]` over `origin/main` `1a97fe0`), and per your instructions, nothing has been pushed to GitHub. Pushing updated files to `origin/main` is required to update `https://rishabhchaurasiyaa.github.io/Courts-After-Dark/`.
 2. **Mobile Sidebar Access:** On `<= 768px` viewports, `aside.sidebar` remains hidden off-canvas (`left: -280px; visibility: hidden;`) while the top hamburger opens the full `.nav-links` menu without menu overlap. Portal links such as `Facility Catalogue` and `Privacy` / `Terms` remain accessible via `.nav-links` and `.footer-links` on mobile.
 3. **Favicon Asset:** No `favicon.ico` file or `<link rel="icon">` exists in the project root, producing one harmless browser default `404` request for `/favicon.ico` on local static serving.
 4. **Prototype Scope:** Authentication, availability slots, and booking confirmations remain client-side `localStorage`/`sessionStorage` simulations.

@@ -597,25 +597,33 @@ h3 { font-size: 1.25rem; }
     padding: 0.25rem;
     margin-right: -0.25rem;
     border-radius: 8px;
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
   .nav-links {
     display: none;
     flex-direction: column;
     background-color: var(--forest-green);
     position: absolute;
-    top: var(--navbar-height, 72px);
+    top: 100%;
     right: 0;
     left: 0;
     width: 100%;
     height: auto;
     max-height: calc(100vh - var(--navbar-height, 72px));
+    max-height: calc(100dvh - var(--navbar-height, 72px));
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 1.25rem 1.5rem 1.5rem;
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
     border-top: 1px solid rgba(232, 220, 197, 0.16);
     gap: 0.4rem;
     align-items: stretch;
     z-index: 1001;
+  }
+  .nav-links:not(.open):not(.show) {
+    display: none !important;
   }
   .nav-links.open,
   .nav-links.show {
@@ -625,6 +633,7 @@ h3 { font-size: 1.25rem; }
     width: 100%;
     height: auto;
     display: flex;
+    flex-shrink: 0;
   }
   .nav-links a {
     font-size: 1rem;
@@ -633,6 +642,7 @@ h3 { font-size: 1.25rem; }
     border-radius: 8px;
     border-bottom: none;
     line-height: 1.3;
+    -webkit-tap-highlight-color: transparent;
   }
   .nav-links a:hover,
   .nav-links a.active {
@@ -644,6 +654,7 @@ h3 { font-size: 1.25rem; }
   .nav-links .cta-button,
   .nav-cta,
   .get-started-btn {
+    display: flex;
     width: 100%;
     min-width: 136px;
     min-height: 46px;

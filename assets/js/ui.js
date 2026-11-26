@@ -48,6 +48,9 @@
         }
       };
 
+      // Ensure closed state on every initial load & bfcache restore (e.g. iOS Safari)
+      closeNav();
+
       toggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleNav();
@@ -59,16 +62,60 @@
       });
 
       // Close on clicking outside menu and toggle button
-      document.addEventListener('click', (e) => {
+      const closeIfOutside = (target) => {
         if (
           isNavOpen() &&
-          !navLinks.contains(e.target) &&
-          !toggleBtn.contains(e.target) &&
-          (!sidebar || !sidebar.contains(e.target))
+          target &&
+          !navLinks.contains(target) &&
+          !toggleBtn.contains(target) &&
+          (!sidebar || !sidebar.contains(target))
         ) {
           closeNav();
         }
+      };
+
+      document.addEventListener('click', (e) => {
+        closeIfOutside(e.target);
       });
+
+      // iOS Safari reliably delivers touch events even when tapping non-clickable hero sections
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchMoved = false;
+      document.addEventListener(
+        'touchstart',
+        (e) => {
+          if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchMoved = false;
+          }
+        },
+        { passive: true }
+      );
+      document.addEventListener(
+        'touchmove',
+        (e) => {
+          if (e.touches && e.touches.length === 1) {
+            if (
+              Math.abs(e.touches[0].clientX - touchStartX) > 10 ||
+              Math.abs(e.touches[0].clientY - touchStartY) > 10
+            ) {
+              touchMoved = true;
+            }
+          }
+        },
+        { passive: true }
+      );
+      document.addEventListener(
+        'touchend',
+        (e) => {
+          if (!touchMoved) {
+            closeIfOutside(e.target);
+          }
+        },
+        { passive: true }
+      );
 
       // Close on Escape key when mobile nav is open (unless a modal is active)
       document.addEventListener('keydown', (e) => {
@@ -80,7 +127,8 @@
         }
       });
 
-      // Reset mobile menu state cleanly if resized above mobile breakpoint
+      // Reset mobile menu state cleanly on bfcache back-navigation or resize above mobile breakpoint
+      window.addEventListener('pageshow', closeNav);
       window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && isNavOpen()) {
           closeNav();
